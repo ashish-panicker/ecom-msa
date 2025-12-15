@@ -20,3 +20,6 @@ eureka:
       default-zone: http://localhost:8761/eureka
 server:
   port: 8300
+jwt:
+  secret: ad647a034acbf86bf9b6c4095e3f56633058224ce164b8fe42fc05b837197f70
+  expiration: 360000

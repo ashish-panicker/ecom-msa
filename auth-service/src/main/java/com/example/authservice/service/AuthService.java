@@ -1,8 +1,8 @@
 package com.example.authservice.service;
 
 import com.example.authservice.clients.UserProfileClient;
-import com.example.authservice.dto.AuthResponse;
-import com.example.authservice.dto.LoginRequest;
+import com.example.authservice.dto.response.AuthResponse;
+import com.example.authservice.dto.request.LoginRequest;
 import com.example.authservice.exceptions.AuthenticationException;
 import com.example.authservice.model.Credential;
 import com.example.authservice.repository.CredentialRepository;

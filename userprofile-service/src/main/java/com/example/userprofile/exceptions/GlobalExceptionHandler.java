@@ -21,5 +21,17 @@ public class GlobalExceptionHandler {
                         )
                 );
     }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<StandardResponse<Void>> handleRuntimeException(RuntimeException ex) {
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(
+                        StandardResponse.failure(
+                                "Request failed",
+                                ErrorResponse.of("USER_CREATION_FAILED", ex.getMessage())
+                        )
+                );
+    }
 }
 

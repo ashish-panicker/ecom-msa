@@ -2,8 +2,11 @@ package com.example.authservice.service;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.SecretKey;
 import java.time.Instant;
 import java.util.Date;
 
@@ -11,22 +14,30 @@ import java.util.Date;
 public class JwtService {
 
     private final String secret = "very-secret-key-for-training";
-    private final long expirationSeconds = 3600;
+
+    @Getter
+    @Value("${jwt.expiration}")
+    private long expirationSeconds;
+
+    @Value("${jwt.secret}")
+    private String secretKey;
+
+    private SecretKey getSecretKey() {
+        return Keys.hmacShaKeyFor(secretKey.getBytes());
+    }
 
     public String generateToken(String username, String role) {
 
         Instant now = Instant.now();
 
-        return Jwts.builder()
-                .setSubject(username)
-                .claim("role", role)
-                .setIssuedAt(Date.from(now))
-                .setExpiration(Date.from(now.plusSeconds(expirationSeconds)))
-                .signWith(Keys.hmacShaKeyFor(secret.getBytes()))
+        return Jwts
+                .builder()
+                .subject(username)
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + expirationSeconds))
+                .signWith(getSecretKey(), Jwts.SIG.HS256)
                 .compact();
+
     }
 
-    public long getExpirationSeconds() {
-        return expirationSeconds;
-    }
 }

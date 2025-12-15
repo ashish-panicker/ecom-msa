@@ -1,8 +1,8 @@
 package com.example.authservice.controller;
 
 import com.example.authservice.common.StandardResponse;
-import com.example.authservice.dto.AuthResponse;
-import com.example.authservice.dto.LoginRequest;
+import com.example.authservice.dto.response.AuthResponse;
+import com.example.authservice.dto.request.LoginRequest;
 import com.example.authservice.service.AuthService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

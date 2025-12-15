@@ -1,5 +1,7 @@
 package com.example.userprofile.service;
 
+import com.example.userprofile.clients.AuthInternalClient;
+import com.example.userprofile.dto.CreateCredentialRequest;
 import com.example.userprofile.dto.CreateUserProfileRequest;
 import com.example.userprofile.dto.UserProfileResponse;
 import com.example.userprofile.exceptions.ResourceNotFoundException;
@@ -14,9 +16,11 @@ import org.springframework.stereotype.Service;
 public class UserProfileService {
 
     private final UserProfileRepository repository;
+    private final AuthInternalClient authClient;
 
-    public UserProfileService(UserProfileRepository repository) {
+    public UserProfileService(UserProfileRepository repository, AuthInternalClient authClient) {
         this.repository = repository;
+        this.authClient = authClient;
     }
 
     public UserProfileResponse create(CreateUserProfileRequest request) {
@@ -28,6 +32,17 @@ public class UserProfileService {
         );
 
         repository.save(profile);
+
+        // create credentials
+        try {
+            authClient.createCredentials(new CreateCredentialRequest(
+                    request.username(), request.password()
+            ));
+        }catch (Exception exception) {
+            // trigger a rollback
+            throw new RuntimeException(exception);
+        }
+
         return map(profile);
     }
 
