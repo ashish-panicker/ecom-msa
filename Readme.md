@@ -66,7 +66,20 @@ curl --location 'http://localhost:8300/api/auth/login' \
 | GET    | `/`            | Eureka dashboard         |
 | GET    | `/eureka/apps` | Registry of all services |
 
-### **Gateway Service**                               |
+### **Gateway Service**
+
+Role of api gateway:
+- Routing
+- Authenticating JWT
+- Authorization
+- Rate Limiting
+- Request/Response Logging
+- Swagger Docs Aggregation
+
+What gateway does not do:
+- Business Logic
+- Issue JWT
+- User Management
 
 ### **Config Service**
 
