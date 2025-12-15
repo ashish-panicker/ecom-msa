@@ -1,25 +1,9 @@
 spring:
+  config:
+    import: configserver:http://localhost:8888
   application:
     name: auth-service
-  datasource:
-    url: jdbc:mysql://localhost:3306/auth_db
-    username: ashish
-    password: password
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        format_sql: true
 user-profile:
   url: http://localhost:8083
-eureka:
-  client:
-    service-url:
-      default-zone: http://localhost:8761/eureka
 server:
   port: 8300
-jwt:
-  secret: ad647a034acbf86bf9b6c4095e3f56633058224ce164b8fe42fc05b837197f70
-  expiration: 360000
