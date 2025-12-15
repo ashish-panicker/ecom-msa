@@ -15,3 +15,7 @@ spring:
     name: inventory-service
 server:
   port: 8100
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka
