@@ -25,38 +25,47 @@ public class RouteConfig {
          */
         return builder
                 .routes()
+
+                .route("auth-service-swagger", r -> r
+                        .path("/auth/v3/api-docs")
+                        .filters(f -> f.stripPrefix(1))
+                        .uri("lb://auth-service"))
+
                 .route("auth-service", r -> r
                         .path("/auth/**")
                         .filters(f -> f.stripPrefix(0).prefixPath("/api"))
                         .uri("lb://auth-service"))
-                .route("auth-service-docs", r -> r
-                        .path("/auth/**")
+
+                .route("userprofile-service-swagger", r -> r
+                        .path("/users/v3/api-docs")
                         .filters(f -> f.stripPrefix(1))
-                        .uri("lb://auth-service"))
+                        .uri("lb://userprofile-service"))
+
                 .route("userprofile-service", r -> r
                         .path("/users/**")
                         .filters(f -> f.stripPrefix(0).prefixPath("/api"))
                         .uri("lb://userprofile-service"))
-                .route("userprofile-service-docs", r -> r
-                        .path("/users/**")
+
+                .route("order-service-swagger", r -> r
+                        .path("/orders/v3/api-docs")
                         .filters(f -> f.stripPrefix(1))
-                        .uri("lb://userprofile-service"))
+                        .uri("lb://order-service"))
+
                 .route("order-service", r -> r
                         .path("/orders/**")
                         .filters(f -> f.stripPrefix(0).prefixPath("/api"))
                         .uri("lb://order-service"))
-                .route("order-service-docs", r -> r
-                        .path("/orders/**")
+
+                .route("inventory-service-swagger", r -> r
+                        .path("/inventory/v3/api-docs")
                         .filters(f -> f.stripPrefix(1))
-                        .uri("lb://order-service"))
+                        .uri("lb://inventory-service"))
+
                 .route("inventory-service", r -> r
                         .path("/inventory/**")
                         .filters(f -> f.stripPrefix(0).prefixPath("/api"))
                         .uri("lb://inventory-service"))
-                .route("inventory-service-docs", r -> r
-                        .path("/inventory/**")
-                        .filters(f -> f.stripPrefix(1))
-                        .uri("lb://inventory-service"))
+
                 .build();
     }
 }

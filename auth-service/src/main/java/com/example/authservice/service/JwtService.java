@@ -33,6 +33,7 @@ public class JwtService {
         return Jwts
                 .builder()
                 .subject(username)
+                .claim("role", role)
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + expirationSeconds))
                 .signWith(getSecretKey(), Jwts.SIG.HS256)

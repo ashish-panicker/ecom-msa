@@ -16,7 +16,7 @@ public class UserProfileController {
         this.service = service;
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public StandardResponse<UserProfileResponse> create(
             @RequestBody CreateUserProfileRequest request) {
 
